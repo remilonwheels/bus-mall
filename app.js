@@ -85,7 +85,7 @@ function handleProductClick(event) {
 
   allProducts[selectedProductIndex].tally += 1;
 
-  if (productsClicked > 4) {
+  if (productsClicked > 24) {
     productSection.removeEventListener('click', handleProductClick);
     submitButton.style.display = 'block';
     submitButton.addEventListener('click', createResultList);
