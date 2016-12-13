@@ -29,6 +29,7 @@ for (var i = 0; i < productNames.length; i++){
   new Product(productNames[i]);
 }
 
+//Function Declarations
 function populateProductSection() {
   var productArray = generateUniqueArray(3);
   var productLeftIndex = productArray[0];
@@ -108,7 +109,6 @@ function createResultList() {
 
 //Attach Event Listeners
 productSection.addEventListener('click', handleProductClick);
-
 
 //Function calls
 populateProductSection();
