@@ -61,27 +61,22 @@ function generateRandomIndex() {
 function handleProductClick(event) {
   event.preventDefault();
   var selectedProductID = event.target.id;
+  var selectedProductIndex = -1;
 
   if (selectedProductID === 'product-left') {
-    console.log('left-selected');
-    console.log(allProducts[currentProductLeftIndex].tally);
+    selectedProductIndex = currentProductLeftIndex;
+  }
+  if (selectedProductID === 'product-center') {
+    selectedProductIndex = currentProductCenterIndex;
+  }
+  if (selectedProductID === 'product-right') {
+    selectedProductIndex = currentProductRightIndex;
   }
 
-  if (selectedProductID === 'product-left') {
-    console.log('left-selected');
-    allProducts[currentProductLeftIndex].tally++;
-    console.log(allProducts[currentProductLeftIndex].tally);
-  }
+  allProducts[selectedProductIndex].tally++;
+  allProducts[selectedProductIndex].views++;
 
-  if (selectedProductID === 'product-left') {
-    console.log('left-selected');
-    allProducts[currentProductLeftIndex].tally++;
-    console.log(allProducts[currentProductLeftIndex].tally);
-  }
-
-
-
-  console.log(selectedProductID);
+  console.table(allProducts);
 
 
   // populateProductSection();
