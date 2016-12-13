@@ -6,11 +6,13 @@ var productsClicked = 0;
 var currentProductLeftIndex = -1;
 var currentProductCenterIndex = -1;
 var currentProductRightIndex = -1;
+var previousProductSet = [-1, -1, -1];
 
 var productSection = document.getElementById('product-section');
 var productLeft = document.getElementById('product-left');
 var productCenter = document.getElementById('product-center');
 var productRight = document.getElementById('product-right');
+var resultList = document.getElementById('result-list');
 
 function Product(productName) {
   this.productName = productName;
@@ -49,7 +51,7 @@ function generateUniqueArray(arrayLength) {
 
   for (var i = 0; i < arrayLength; i++) {
     var randomIndex = generateRandomIndex();
-    while (productSet.indexOf(randomIndex) !== -1) {
+    while ((productSet.indexOf(randomIndex) !== -1) || (previousProductSet.indexOf(randomIndex) !== -1)) {
       randomIndex = generateRandomIndex();
     }
     productSet.push(randomIndex);
@@ -67,7 +69,8 @@ function handleProductClick(event) {
   productsClicked += 1;
 
   if (productsClicked > 5) {
-    alert('done');
+    productSection.removeEventListener('click', handleProductClick);
+    createResultList();
     return;
   }
 
@@ -86,12 +89,22 @@ function handleProductClick(event) {
 
   allProducts[selectedProductIndex].tally += 1;
 
-  console.table(allProducts);
-  populateProductSection();
+  previousProductSet = [currentProductLeftIndex, currentProductCenterIndex, currentProductRightIndex];
+  console.log(previousProductSet);
 
+  populateProductSection();
 }
 
+function createResultList() {
+  for (var i = 0; i < allProducts.length; i++) {
+    var liEl = document.createElement('li');
+    liEl.textContent = allProducts[i].tally + ' votes for the ' + allProducts[i].productName;;
+    resultList.appendChild(liEl);
+  }
+}
+
+//Attach Event Listeners
 productSection.addEventListener('click', handleProductClick);
 
-
+//Function calls
 populateProductSection();
