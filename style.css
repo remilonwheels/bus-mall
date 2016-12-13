@@ -6,3 +6,7 @@ img {
   width: 150px;
   height: 150px;
 }
+
+#submit-button {
+  display: none;
+}

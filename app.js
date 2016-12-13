@@ -1,7 +1,7 @@
 'use strict';
 
 var allProducts = [];
-var productNames = ['bag', 'banana', 'boots', 'breakfast', 'bubblegum', 'chair'];
+var productNames = ['bag', 'banana', 'boots', 'breakfast', 'bubblegum', 'chair', 'cthulhu', 'dog-duck', 'dragon', 'pen', 'pet-sweep', 'scissors', 'shark', 'sweep', 'tauntaun', 'unicorn', 'usb', 'water-can', 'wine-glass'];
 var productsClicked = 0;
 var currentProductLeftIndex = -1;
 var currentProductCenterIndex = -1;
@@ -13,6 +13,7 @@ var productLeft = document.getElementById('product-left');
 var productCenter = document.getElementById('product-center');
 var productRight = document.getElementById('product-right');
 var resultList = document.getElementById('result-list');
+var submitButton = document.getElementById('submit-button');
 
 function Product(productName) {
   this.productName = productName;
@@ -66,13 +67,8 @@ function generateRandomIndex() {
 
 function handleProductClick(event) {
   event.preventDefault();
-  productsClicked += 1;
 
-  if (productsClicked > 5) {
-    productSection.removeEventListener('click', handleProductClick);
-    createResultList();
-    return;
-  }
+  productsClicked += 1;
 
   var selectedProductID = event.target.id;
   var selectedProductIndex = -1;
@@ -88,6 +84,13 @@ function handleProductClick(event) {
   }
 
   allProducts[selectedProductIndex].tally += 1;
+
+  if (productsClicked > 4) {
+    productSection.removeEventListener('click', handleProductClick);
+    submitButton.style.display = 'block';
+    submitButton.addEventListener('click', createResultList);
+    return;
+  }
 
   previousProductSet = [currentProductLeftIndex, currentProductCenterIndex, currentProductRightIndex];
   console.log(previousProductSet);
@@ -105,6 +108,7 @@ function createResultList() {
 
 //Attach Event Listeners
 productSection.addEventListener('click', handleProductClick);
+
 
 //Function calls
 populateProductSection();
