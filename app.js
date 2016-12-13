@@ -2,6 +2,7 @@
 
 var allProducts = [];
 var productNames = ['bag', 'banana', 'boots', 'breakfast', 'bubblegum', 'chair'];
+var productsClicked = 0;
 var currentProductLeftIndex = -1;
 var currentProductCenterIndex = -1;
 var currentProductRightIndex = -1;
@@ -32,8 +33,11 @@ function populateProductSection() {
   var productRightIndex = productArray[2];
 
   productLeft.src = allProducts[productLeftIndex].path;
+  allProducts[productLeftIndex].views += 1;
   productCenter.src = allProducts[productCenterIndex].path;
+  allProducts[productCenterIndex].views += 1;
   productRight.src = allProducts[productRightIndex].path;
+  allProducts[productRightIndex].views += 1;
 
   currentProductLeftIndex = productLeftIndex;
   currentProductCenterIndex = productCenterIndex;
@@ -60,6 +64,13 @@ function generateRandomIndex() {
 
 function handleProductClick(event) {
   event.preventDefault();
+  productsClicked += 1;
+
+  if (productsClicked > 5) {
+    alert('done');
+    return;
+  }
+
   var selectedProductID = event.target.id;
   var selectedProductIndex = -1;
 
@@ -73,13 +84,11 @@ function handleProductClick(event) {
     selectedProductIndex = currentProductRightIndex;
   }
 
-  allProducts[selectedProductIndex].tally++;
-  allProducts[selectedProductIndex].views++;
+  allProducts[selectedProductIndex].tally += 1;
 
   console.table(allProducts);
+  populateProductSection();
 
-
-  // populateProductSection();
 }
 
 productSection.addEventListener('click', handleProductClick);
