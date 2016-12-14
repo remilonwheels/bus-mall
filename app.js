@@ -3,6 +3,7 @@
 var allProducts = [];
 var productNames = ['bag', 'banana', 'boots', 'breakfast', 'bubblegum', 'chair', 'cthulhu', 'dog-duck', 'dragon', 'pen', 'pet-sweep', 'scissors', 'shark', 'sweep', 'tauntaun', 'unicorn', 'usb', 'water-can', 'wine-glass'];
 var productTally = [];
+var productViews = [];
 var productsClicked = 0;
 var currentProductLeftIndex = -1;
 var currentProductCenterIndex = -1;
@@ -110,36 +111,37 @@ function createResultList() {
 }
 
 var data = {
-  labels: productNames, // titles array we declared earlier
+  labels: productNames,
   datasets: [
     {
+      label: 'Votes',
+      data: productTally,
+      backgroundColor: 'navy',
+      hoverBackgroundColor: 'purple',
+    },
+    {
       label: 'Views',
-      data: productTally//, // votes array we declared earlier
-      // backgroundColor: [
-      //   'navy',
-      // ],
-      // hoverBackgroundColor: [
-      //   'purple',
-      // ]
-    }]
+      data: productViews,
+    }, ]
 };
 
 function drawChart() {
   for (i = 0; i < productNames.length; i++) {
     productTally[i] = allProducts[i].tally;
+    productViews[i] = allProducts[i].views;
   }
 
   var ctx = document.getElementById('result-chart').getContext('2d');
-  productChart = new Chart(ctx,{
+  productChart = new Chart(ctx, {
     type: 'bar',
     data: data,
     options: {
-      responsive: false
+      responsive: false,
     },
     scales: [{
       ticks: {
         beginAtZero:true,
-        fixedStepSize: 1
+        fixedStepSize: 1,
       }
     }]
   });
