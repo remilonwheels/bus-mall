@@ -2,11 +2,13 @@
 
 var allProducts = [];
 var productNames = ['bag', 'banana', 'boots', 'breakfast', 'bubblegum', 'chair', 'cthulhu', 'dog-duck', 'dragon', 'pen', 'pet-sweep', 'scissors', 'shark', 'sweep', 'tauntaun', 'unicorn', 'usb', 'water-can', 'wine-glass'];
+var productTally = [];
 var productsClicked = 0;
 var currentProductLeftIndex = -1;
 var currentProductCenterIndex = -1;
 var currentProductRightIndex = -1;
 var previousProductSet = [-1, -1, -1];
+var productChart;
 
 var productSection = document.getElementById('product-section');
 var productLeft = document.getElementById('product-left');
@@ -29,6 +31,7 @@ for (var i = 0; i < productNames.length; i++){
   new Product(productNames[i]);
 }
 
+//Function Declarations
 function populateProductSection() {
   var productArray = generateUniqueArray(3);
   var productLeftIndex = productArray[0];
@@ -88,7 +91,7 @@ function handleProductClick(event) {
   if (productsClicked > 24) {
     productSection.removeEventListener('click', handleProductClick);
     submitButton.style.display = 'block';
-    submitButton.addEventListener('click', createResultList);
+    submitButton.addEventListener('click', drawChart);
     return;
   }
 
@@ -106,9 +109,44 @@ function createResultList() {
   }
 }
 
+var data = {
+  labels: productNames, // titles array we declared earlier
+  datasets: [
+    {
+      label: 'Views',
+      data: productTally//, // votes array we declared earlier
+      // backgroundColor: [
+      //   'navy',
+      // ],
+      // hoverBackgroundColor: [
+      //   'purple',
+      // ]
+    }]
+};
+
+function drawChart() {
+  for (i = 0; i < productNames.length; i++) {
+    productTally[i] = allProducts[i].tally;
+  }
+
+  var ctx = document.getElementById('result-chart').getContext('2d');
+  productChart = new Chart(ctx,{
+    type: 'bar',
+    data: data,
+    options: {
+      responsive: false
+    },
+    scales: [{
+      ticks: {
+        beginAtZero:true,
+        fixedStepSize: 1
+      }
+    }]
+  });
+}
+
 //Attach Event Listeners
 productSection.addEventListener('click', handleProductClick);
-
 
 //Function calls
 populateProductSection();
