@@ -27,10 +27,6 @@ function Product(productName) {
   allProducts.push(this);
 }
 
-//Create Product Instances
-for (var i = 0; i < productNames.length; i++){
-  new Product(productNames[i]);
-}
 
 //Function Declarations
 function populateProductSection() {
@@ -41,15 +37,23 @@ function populateProductSection() {
 
   productLeft.src = allProducts[productLeftIndex].path;
   allProducts[productLeftIndex].views += 1;
+  updateLocalStorage();
   productCenter.src = allProducts[productCenterIndex].path;
   allProducts[productCenterIndex].views += 1;
+  updateLocalStorage();
   productRight.src = allProducts[productRightIndex].path;
   allProducts[productRightIndex].views += 1;
+  updateLocalStorage();
 
   currentProductLeftIndex = productLeftIndex;
   currentProductCenterIndex = productCenterIndex;
   currentProductRightIndex = productRightIndex;
 }
+function updateLocalStorage(){
+  var arrayStorage = JSON.stringify(allProducts);
+  localStorage.setItem('allProducts', arrayStorage);
+  console.table(allProducts);
+};
 
 function generateUniqueArray(arrayLength) {
   var productSet = [];
@@ -151,4 +155,15 @@ function drawChart() {
 productSection.addEventListener('click', handleProductClick);
 
 //Function calls
+if (localStorage.length !== 0) {
+  console.log('Local storage is not updated');
+  allProducts = JSON.parse(localStorage.allProducts);
+
+}
+else {
+  //Create Product Instances
+  for (var i = 0; i < productNames.length; i++){
+    new Product(productNames[i]);
+  }
+}
 populateProductSection();
