@@ -1,23 +1,54 @@
-* {
-  border: 1px dotted red;
-}
 
 header{
   color: white;
   background-color: #031c44;
+  height: 80px;
 }
 
 h1 {
   position: relative;
   left: 20px;
+  top: 25px;
+  font-size: 30px;
+}
+
+main {
+  max-width: 800px;
+  margin: 10px auto;
+}
+
+ul {
+  max-width: 800px;
+  mar
+}
+
+ul h2 {
+  font-size: 24px;
 }
 
 
 img {
-  width: 150px;
-  height: 150px;
+  width: 200px;
+  height: 200px;
+  margin: 30px;
 }
 
 #submit-button {
   display: none;
+}
+
+li {
+  list-style-type: square;
+  list-style-position: inside;
+  margin-left: 20px;
+  margin-top: 5px;
+}
+
+button {
+  padding: 10px 30px;
+  font-size: 18px;
+  margin: 10px auto;
+  background-color: black;
+  color: white;
+  transition: all 350ms ease;
 }
