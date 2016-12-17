@@ -1,5 +1,4 @@
-
-header{
+header {
   color: white;
   background-color: #031c44;
   height: 80px;
@@ -19,13 +18,11 @@ main {
 
 ul {
   max-width: 800px;
-  mar
 }
 
 ul h2 {
   font-size: 24px;
 }
-
 
 img {
   width: 200px;
